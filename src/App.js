@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./styles.css";
+import Envelope from "./component/Envelope";
+import LanguageSelector from "./component/LanguageSelector"
+import MusicPlayer from "./component/MusicPlayer";
 
-function App() {
+export default function App() {
+  const [stage, setStage] = useState("idle");
+  const [lang, setLang] = useState(null);
+  const [name, setName] = useState("");
+
+  const handleLanguage = (lang, username) => {
+    setLang(lang);
+    setName(username || "Your Child");
+    setStage("ready");
+  };
+
+  const handleOpen = () => {
+    setStage("opening");
+
+    setTimeout(() => {
+      setStage("opened");
+    }, 1200);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+       <MusicPlayer />
+      {stage === "idle" && (
+        <LanguageSelector onSelect={handleLanguage} />
+      )}
+
+      {stage !== "idle" && (
+  <Envelope stage={stage} onOpen={handleOpen} lang={lang} name={name} />
+)}
     </div>
   );
 }
-
-export default App;
