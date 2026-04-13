@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import confetti from "canvas-confetti";
 
 export default function Message({ stage, lang, name }) {
@@ -6,7 +6,8 @@ export default function Message({ stage, lang, name }) {
   const intervalRef = useRef(null);
   const hasFiredConfetti = useRef(false);
 
-  const messages = {
+  // ✅ FIX: memoized messages
+  const messages = useMemo(() => ({
     en: `Dear ${name || "Mom"},
 
 Happy Mother's Day.
@@ -26,7 +27,7 @@ thrive.co`,
 
 आपका,
 thrive.co`
-  };
+  }), [name]);
 
   useEffect(() => {
     if (stage !== "opened") {
@@ -38,7 +39,6 @@ thrive.co`
     const fullText = messages[lang] || messages.en;
     let i = 0;
 
-    // clear previous interval (important)
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -50,7 +50,6 @@ thrive.co`
       if (i > fullText.length) {
         clearInterval(intervalRef.current);
 
-        // 🎉 fire confetti only once
         if (!hasFiredConfetti.current) {
           confetti({
             particleCount: 120,
@@ -60,14 +59,10 @@ thrive.co`
           hasFiredConfetti.current = true;
         }
       }
-    }, 20); // smoother typing
+    }, 20);
 
     return () => clearInterval(intervalRef.current);
-  }, [stage, lang, name]); // 👈 IMPORTANT
+  }, [stage, lang, messages]); // ✅ FIXED
 
-  return (
-    <pre className="message-text">
-      {text}
-    </pre>
-  );
+  return <pre className="message-text">{text}</pre>;
 }
