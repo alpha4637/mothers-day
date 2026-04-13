@@ -6,9 +6,10 @@ export default function Message({ stage, lang, name }) {
   const intervalRef = useRef(null);
   const hasFiredConfetti = useRef(false);
 
-  // ✅ FIX: memoized messages
-  const messages = useMemo(() => ({
-    en: `Dear ${name || "Mom"},
+  // ✅ ONLY memoize final text
+  const fullText = useMemo(() => {
+    const messages = {
+      en: `Dear ${name || "Mom"},
 
 Happy Mother's Day.
 Your love is the quiet strength that carries me every day.
@@ -18,7 +19,7 @@ Thank you ❤️
 Love,
 thrive.co`,
 
-    hi: `प्रिय ${name || "माँ"},
+      hi: `प्रिय ${name || "माँ"},
 
 मदर्स डे की शुभकामनाएं।
 आपका प्यार वो ताकत है जो मुझे हर दिन संभालता है।
@@ -27,7 +28,10 @@ thrive.co`,
 
 आपका,
 thrive.co`
-  }), [name]);
+    };
+
+    return messages[lang] || messages.en;
+  }, [lang, name]);
 
   useEffect(() => {
     if (stage !== "opened") {
@@ -36,7 +40,6 @@ thrive.co`
       return;
     }
 
-    const fullText = messages[lang] || messages.en;
     let i = 0;
 
     if (intervalRef.current) {
@@ -62,7 +65,7 @@ thrive.co`
     }, 20);
 
     return () => clearInterval(intervalRef.current);
-  }, [stage, lang, messages]); // ✅ FIXED
+  }, [stage, fullText]); // ✅ CLEAN dependencies
 
   return <pre className="message-text">{text}</pre>;
 }
