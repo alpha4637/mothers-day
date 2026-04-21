@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import Letter from "./Letter";
 import Share from "./Share";
 
-export default function Envelope({ stage, onOpen, lang, name }) {
+export default function Envelope({ stage, onOpen, lang, name,isReceiver }) {
   return (
     <div className="envelope-wrapper">
       <div className={`envelope ${stage}`}>
@@ -36,10 +36,9 @@ export default function Envelope({ stage, onOpen, lang, name }) {
         </button>
       )}
 
-      {/* 👇 SHARE BUTTON */}
-      {stage === "opened" && (
-        <Share name={name} />
-      )}
+     {stage === "opened" && !isReceiver && (
+  <Share name={name} lang={lang} />
+)}
     </div>
   );
 }

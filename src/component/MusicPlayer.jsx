@@ -1,31 +1,21 @@
-import { useRef, useState } from "react";
+import { useRef} from "react";
 
-export default function MusicPlayer() {
-  const audioRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-
-  const toggleMusic = () => {
-    if (!audioRef.current) return;
-
-    if (audioRef.current.paused) {
-      audioRef.current.volume = 0.4; // soft background feel
-      audioRef.current.play();
-      setPlaying(true);
-    } else {
-      audioRef.current.pause();
-      setPlaying(false);
+export default function MusicPlayer({ song }) {
+  const audioRef = useRef(null); 
+  const getSongSrc = () => {
+    switch (song) {
+      case "maa":
+        return "/maa.mp3";
+      case "meri-maa":
+        return "/meri-maa.mp3";
+      default:
+        return "/mumma.mp3";
     }
   };
 
   return (
-    <>
-      <button className="music-btn" onClick={toggleMusic}>
-        {playing ? "🔊" : "🎵"}
-      </button>
-
-      <audio ref={audioRef} loop>
-        <source src="/mumma.mp3" type="audio/mpeg" />
-      </audio>
-    </>
+    <audio ref={audioRef} loop>
+      <source src={getSongSrc()} type="audio/mpeg" />
+    </audio>
   );
 }

@@ -1,14 +1,20 @@
-export default function Share({ name }) {
-  const url = encodeURIComponent(window.location.href);
+export default function Share({ name, lang }) {
+  const baseUrl = window.location.origin;
+
+  const shareUrl = `${baseUrl}?name=${encodeURIComponent(
+    name
+  )}&lang=${lang}`;
 
   const text = encodeURIComponent(
-    `I made this for my mom ❤️ - ${name}`
+    `I made this for my mom ❤️`
   );
 
   return (
     <a
       className="share-btn"
-      href={`https://wa.me/?text=${text}%20${url}`}
+      href={`https://wa.me/?text=${text}%20${encodeURIComponent(
+        shareUrl
+      )}`}
       target="_blank"
       rel="noreferrer"
     >

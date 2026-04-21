@@ -8,8 +8,8 @@ export default function Message({ stage, lang, name }) {
 
   // ✅ ONLY memoize final text
   const fullText = useMemo(() => {
-    const messages = {
-      en: `Dear ${name || "Mom"},
+ const messages = {
+  en: `Dear Mom,
 
 Happy Mother's Day.
 Your love is the quiet strength that carries me every day.
@@ -17,7 +17,7 @@ Your love is the quiet strength that carries me every day.
 Thank you ❤️
 
 Love,
-thrive.co`,
+${name}`,
 
       hi: `प्रिय ${name || "माँ"},
 
