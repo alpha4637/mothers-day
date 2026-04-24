@@ -6,41 +6,136 @@
 body {
   margin: 0;
   font-family: 'Georgia', serif;
-  background: linear-gradient(to bottom, #fdf6f0, #f7efe5);
+  background: linear-gradient(135deg, #fdf6f0 0%, #f7efe5 50%, #fce8e8 100%);
+  min-height: 100vh;
 }
 
-/* APP CENTERING (CRITICAL FIX) */
+/* APP CENTERING */
 .app {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 20px;
 }
 
-/* LANGUAGE SCREEN */
+/* ===================== */
+/* LANGUAGE / SENDER CARD */
+/* ===================== */
 .lang-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.lang-card {
+  background: white;
+  border-radius: 20px;
+  padding: 36px 32px;
+  width: min(90vw, 420px);
+  box-shadow: 0 20px 60px rgba(201, 79, 79, 0.12), 0 4px 16px rgba(0,0,0,0.06);
   text-align: center;
 }
 
-.lang-container input {
-  padding: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+.lang-card-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
 }
 
-.lang-container button {
-  margin: 5px;
-  padding: 10px 16px;
-  border-radius: 8px;
+.lang-card-title {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  color: #2d1a1a;
+  font-family: 'Georgia', serif;
+}
+
+.lang-card-subtitle {
+  margin: 0 0 28px 0;
+  font-size: 13px;
+  color: #a07070;
+}
+
+.lang-input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.lang-label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: #a07070;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.lang-input,
+.lang-select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #e8d8d0;
+  background: #fdf9f7;
+  font-family: 'Georgia', serif;
+  font-size: 14px;
+  color: #2d1a1a;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.lang-input:focus,
+.lang-select:focus {
+  border-color: #c94f4f;
+}
+
+.lang-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.lang-btn {
+  flex: 1;
+  padding: 12px;
   border: none;
-  background: #c94f4f;
+  background: linear-gradient(135deg, #ff6b6b, #c94f4f);
   color: white;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 14px rgba(201, 79, 79, 0.3);
+  transition: all 0.2s ease;
 }
 
-/* ENVELOPE WRAPPER */
+.lang-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(201, 79, 79, 0.4);
+}
+
+.lang-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.lang-btn-hi {
+  background: linear-gradient(135deg, #ff8c42, #e05d00);
+  box-shadow: 0 4px 14px rgba(224, 93, 0, 0.3);
+}
+
+.lang-hint {
+  font-size: 11px;
+  color: #c94f4f;
+  margin: 8px 0 0 0;
+  text-align: center;
+}
+
+/* ===================== */
+/* ENVELOPE              */
+/* ===================== */
 .envelope-wrapper {
   display: flex;
   flex-direction: column;
@@ -50,7 +145,7 @@ body {
 
 .envelope {
   width: min(90vw, 320px);
-  height: calc(min(90vw, 320px) * 0.66);
+  height: 220px;
   position: relative;
   perspective: 1200px;
 }
@@ -65,48 +160,34 @@ body {
   z-index: 1;
 }
 
-/* FRONT POCKET (important for realism) */
-.envelope {
-  width: min(90vw, 320px);
-  height: 220px;
-  position: relative;
-  perspective: 1200px;
-}
-
-/* BODY */
-.body {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #f0e6d8;
-  border-radius: 12px;
-  z-index: 1;
-}
-
 .envelope.opened {
-  margin-bottom: 120px; /* 👈 adjust based on animation */
+  margin-bottom: 120px;
 }
 
 /* LETTER */
 .letter {
-  position: relative;   /* 👈 change */
-  width: 85%;
-  margin-top: -120px;   /* 👈 initially hidden inside envelope */
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  top: 60%;
+  transform: translateY(0);
   background: white;
-  padding: 18px;
-  border-radius: 8px;
+  padding: 16px;
+  border-radius: 6px;
   z-index: 2;
-
-  transform: translateY(40px);
   opacity: 0;
+  will-change: transform;
+}
+
+.envelope.opened .letter {
+  transform: translateY(-120px);
+  opacity: 1;
   transition: transform 0.8s ease, opacity 0.5s ease;
 }
 
-/* OPEN */
-.envelope.opened .letter {
-  transform: translateY(-80px);
-  opacity: 1;
-  margin-top: 20px; /* 👈 pushes content down naturally */
+.envelope.opened .pocket {
+  opacity: 0;
+  transition: opacity 0s ease;
 }
 
 /* POCKET */
@@ -129,38 +210,7 @@ body {
   transform-origin: top;
   z-index: 4;
   backface-visibility: hidden;
-}
-
-.flap,
-.letter {
   will-change: transform;
-}
-
-
-.letter {
-  position: absolute;
-  width: 90%;
-  left: 5%;
-  top: 60%;
-  transform: translateY(0);
-  background: white;
-  padding: 16px;
-  border-radius: 6px;
-  z-index: 2;
-
-  opacity: 0;   /* 👈 IMPORTANT */
-}
-
-/* OPEN STATE */
-.envelope.opened .letter {
-  transform: translateY(-120px);
-  opacity: 1;
-  transition: transform 0.8s ease, opacity 0.5s ease;
-}
-
-.envelope.opened .pocket {
-  opacity: 0;
-  transition: opacity 0s ease;
 }
 
 /* MESSAGE */
@@ -172,48 +222,6 @@ body {
 }
 
 /* BUTTONS */
-.open-btn {
-  margin-top: 20px;
-  padding: 10px 18px;
-  border: none;
-  background: #c94f4f;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* HINT */
-.hint {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-/* MUSIC */
-.music-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
-
-/* SHARE */
-.share-btn {
-  margin-top: 20px;
-  display: inline-block;
-  background: #25D366;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-.letter {
-  opacity: 0;
-}
-
-.envelope.opened .letter {
-  opacity: 1;
-}
-
 .open-btn {
   margin-top: 20px;
   padding: 12px 22px;
@@ -231,3 +239,59 @@ body {
 .open-btn:hover {
   transform: translateY(-2px);
 }
+
+/* SHARE */
+.share-btn {
+  margin-top: 20px;
+  display: inline-block;
+  background: #25D366;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.3);
+  transition: all 0.2s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* MUSIC */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+/* MUSIC TOGGLE BUTTON */
+.music-toggle-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 999;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+.music-toggle-btn.paused {
+  opacity: 0.6;
+}
+

@@ -8,26 +8,28 @@ export default function App() {
   const [stage, setStage] = useState("idle");
   const [lang, setLang] = useState(null);
   const [name, setName] = useState("");
+  const [song, setSong] = useState("mumma");
   const [isReceiver, setIsReceiver] = useState(false);
 
-  // ✅ READ FROM URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-
     const urlName = params.get("name");
     const urlLang = params.get("lang");
+    const urlSong = params.get("song");
 
     if (urlName && urlLang) {
       setName(urlName);
       setLang(urlLang);
+      if (urlSong) setSong(urlSong);
       setStage("ready");
-      setIsReceiver(true); // 🔥 important
+      setIsReceiver(true);
     }
   }, []);
 
-  const handleLanguage = (lang, username) => {
-    setLang(lang);
+  const handleLanguage = (selectedLang, username, selectedSong) => {
+    setLang(selectedLang);
     setName(username || "Your Child");
+    setSong(selectedSong || "mumma");
     setStage("ready");
   };
 
@@ -38,9 +40,8 @@ export default function App() {
 
   return (
     <div className="app">
-      <MusicPlayer />
+      <MusicPlayer song={song} stage={stage} isReceiver={isReceiver} />
 
-      {/* Sender only */}
       {stage === "idle" && !isReceiver && (
         <LanguageSelector onSelect={handleLanguage} />
       )}
@@ -51,6 +52,7 @@ export default function App() {
           onOpen={handleOpen}
           lang={lang}
           name={name}
+          song={song}
           isReceiver={isReceiver}
         />
       )}
