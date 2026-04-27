@@ -164,7 +164,7 @@ body {
   margin-bottom: 120px;
 }
 
-/* LETTER */
+/* LETTER inside envelope */
 .letter {
   position: absolute;
   width: 90%;
@@ -219,6 +219,7 @@ body {
   font-family: 'Noto Sans Devanagari', 'Courier New', monospace;
   line-height: 1.6;
   font-size: 14px;
+  margin: 0;
 }
 
 /* BUTTONS */
@@ -295,3 +296,340 @@ body {
   opacity: 0.6;
 }
 
+/* ===================== */
+/* PAGES / NAVIGATION    */
+/* ===================== */
+.pages-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: min(90vw, 340px);
+}
+
+.page-viewport {
+  width: 100%;
+  min-height: 260px;
+  perspective: 800px;
+}
+
+.page-content {
+  width: 100%;
+}
+
+/* Letter shown outside envelope */
+.opened-letter {
+  position: relative !important;
+  width: 100% !important;
+  left: auto !important;
+  top: auto !important;
+  transform: none !important;
+  opacity: 1 !important;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.page-indicator {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e8d0c8;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #c94f4f;
+}
+
+.page-nav {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.nav-arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #e8d0c8;
+  background: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  transition: all 0.2s ease;
+  color: #c94f4f;
+  font-weight: bold;
+}
+
+.nav-arrow:hover:not(.disabled) {
+  background: #c94f4f;
+  color: white;
+  border-color: #c94f4f;
+  transform: scale(1.1);
+}
+
+.nav-arrow.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ===================== */
+/* COUPON CARD           */
+/* ===================== */
+.coupon-wrapper {
+  width: 100%;
+}
+
+.coupon-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(201, 79, 79, 0.15);
+  overflow: hidden;
+}
+
+.coupon-top {
+  background: linear-gradient(135deg, #ff6b6b, #c94f4f);
+  padding: 28px 24px 20px;
+  text-align: center;
+  color: white;
+}
+
+.coupon-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.coupon-title {
+  margin: 0 0 6px 0;
+  font-size: 20px;
+  font-family: 'Georgia', serif;
+}
+
+.coupon-subtitle {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.coupon-divider {
+  display: flex;
+  align-items: center;
+  background: #fdf6f0;
+  padding: 0 16px;
+}
+
+.coupon-divider span:first-child,
+.coupon-divider span:last-child {
+  flex: 1;
+  border-top: 2px dashed #e8d0c8;
+}
+
+.coupon-scissors {
+  padding: 8px 12px;
+  font-size: 18px;
+  color: #c94f4f;
+}
+
+.coupon-bottom {
+  padding: 20px 24px 28px;
+  text-align: center;
+  background: #fdf6f0;
+}
+
+.coupon-label {
+  margin: 0 0 10px 0;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  color: #a07070;
+  text-transform: uppercase;
+}
+
+.coupon-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: white;
+  border: 2px dashed #c94f4f;
+  border-radius: 10px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.coupon-code-box:hover {
+  background: #fff5f5;
+  transform: scale(1.02);
+}
+
+.coupon-code {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: #c94f4f;
+  letter-spacing: 1px;
+}
+
+.coupon-copy-icon {
+  font-size: 18px;
+}
+
+.coupon-copy-hint {
+  margin: 10px 0 0 0;
+  font-size: 12px;
+  color: #a07070;
+}
+
+/* ===================== */
+/* PAGES / NAVIGATION    */
+/* ===================== */
+.opened-page {
+  width: min(90vw, 320px);
+}
+
+.page-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.page-indicator {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e8d0c8;
+  transition: background 0.3s;
+}
+
+.dot.active {
+  background: #c94f4f;
+}
+
+.nav-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #e8d0c8;
+  background: white;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  transition: all 0.2s ease;
+  color: #c94f4f;
+  font-weight: bold;
+}
+
+.nav-arrow:hover:not(.disabled) {
+  background: #c94f4f;
+  color: white;
+  border-color: #c94f4f;
+  transform: scale(1.1);
+}
+
+.nav-arrow.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ===================== */
+/* COUPON CARD           */
+/* ===================== */
+.coupon-wrapper {
+  width: min(90vw, 320px);
+}
+
+.coupon-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(201, 79, 79, 0.15);
+  overflow: hidden;
+}
+
+.coupon-top {
+  background: linear-gradient(135deg, #ff6b6b, #c94f4f);
+  padding: 28px 24px 20px;
+  text-align: center;
+  color: white;
+}
+
+.coupon-icon { font-size: 42px; margin-bottom: 10px; }
+.coupon-title { margin: 0 0 6px 0; font-size: 20px; font-family: 'Georgia', serif; }
+.coupon-subtitle { margin: 0; font-size: 13px; opacity: 0.85; }
+
+.coupon-divider {
+  display: flex;
+  align-items: center;
+  background: #fdf6f0;
+  padding: 0 16px;
+}
+
+.coupon-divider span:first-child,
+.coupon-divider span:last-child {
+  flex: 1;
+  border-top: 2px dashed #e8d0c8;
+}
+
+.coupon-scissors { padding: 8px 12px; font-size: 18px; color: #c94f4f; }
+
+.coupon-bottom {
+  padding: 20px 24px 28px;
+  text-align: center;
+  background: #fdf6f0;
+}
+
+.coupon-label {
+  margin: 0 0 10px 0;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  color: #a07070;
+  text-transform: uppercase;
+}
+
+.coupon-code-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: white;
+  border: 2px dashed #c94f4f;
+  border-radius: 10px;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.coupon-code-box:hover { background: #fff5f5; transform: scale(1.02); }
+
+.coupon-code {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: bold;
+  color: #c94f4f;
+  letter-spacing: 1px;
+}
+
+.coupon-copy-icon { font-size: 18px; }
+.coupon-copy-hint { margin: 10px 0 0 0; font-size: 12px; color: #a07070; }
