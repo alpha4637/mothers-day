@@ -21,7 +21,7 @@ Thank you ❤️
 Love,
 ${name}${COUPON_HINT_EN}`,
 
-      hi: `प्रिय ${name || "माँ"},
+      hi: `प्रिय माँ,
 
 मदर्स डे की शुभकामनाएं।
 आपका प्यार वो ताकत है जो मुझे हर दिन संभालता है।
@@ -29,7 +29,7 @@ ${name}${COUPON_HINT_EN}`,
 धन्यवाद ❤️
 
 आपका,
-thrive.co${COUPON_HINT_HI}`
+${name}${COUPON_HINT_HI}`
     };
 
     return messages[lang] || messages.en;

@@ -44,14 +44,14 @@ export default function LanguageSelector({ onSelect }) {
               onClick={() => onSelect("en", name, song)}
               disabled={!name.trim()}
             >
-              🇬🇧 English
+              English
             </button>
             <button
               className="lang-btn lang-btn-hi"
               onClick={() => onSelect("hi", name, song)}
               disabled={!name.trim()}
             >
-              🇮🇳 हिंदी
+              हिंदी
             </button>
           </div>
           {!name.trim() && (
