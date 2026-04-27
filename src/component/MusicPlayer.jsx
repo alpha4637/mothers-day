@@ -1,10 +1,10 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 
-export default function MusicPlayer({ song, stage, isReceiver }) {
+export default function MusicPlayer({ song, stage }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const getSongSrc = () => {
+  const getSongSrc = useCallback(() => {
     switch (song) {
       case "maa":      return "/Maa_Taare_Zameen_Par.mp3";
       case "meri-maa": return "/Meri_Maa_Yaariyan.mp3";
@@ -12,9 +12,8 @@ export default function MusicPlayer({ song, stage, isReceiver }) {
       case "aisa":     return "/Aisa_Kyun_Maa_Neerja.mp3";
       default:         return "/mumma.mp3";
     }
-  };
+  }, [song]);
 
-  // Dono ke liye "opening" ya "opened" pe play — "Open Letter" click se trigger hoga
   const shouldPlay = stage === "opening" || stage === "opened";
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export default function MusicPlayer({ song, stage, isReceiver }) {
       audio.currentTime = 0;
       setIsPlaying(false);
     }
-  }, [shouldPlay, song]);
+  }, [shouldPlay, getSongSrc]);
 
   const toggleMusic = (e) => {
     e.stopPropagation();
